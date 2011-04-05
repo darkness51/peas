@@ -1,43 +1,55 @@
-from django.contrib.gis.db import models
+from django.db import models
 from django.contrib.auth.models import User
-from commonutils.slug import slugify
-from tagging.fields import TagField
+from django.template.defaultfilters import slugify
 
+# Create your models here.
 
 class EventType(models.Model):
-    name = models.CharField(max_length=50)
-
+    name = models.CharField(max_length=150)
+    
+    def __unicode__(self):
+        return self.name
 
 class Event(models.Model):
-    name = models.CharField(max_length=150)
+    name = models.CharField(max_length=50)
     slug = models.SlugField(editable=False)
-    type = models.ForeignKey(EventType)
-    time = models.DateTimeField(db_index=True)
-    address = models.TextField(blank=True, null=True)
-    location = models.PointField()
-    tags = TagField()
+    description = models.TextField()
+    type = models.ForeignKey(EventType, blank = True, null =True)
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+    address = models.TextField()
+    location = models.CharField(max_length=150)
+    is_public = models.BooleanField(default = False)
     user = models.ForeignKey(User)
-
-    def save(self, **kwargs):
+    
+    added = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    
+    def __unicode__(self):
+        return self.name
+    
+    def save(self):
         self.slug = slugify(self.name)
-        super(Event, self).save(**kwargs)
-
-
+        super(Event, self).save()
+   
+    
 class Photo(models.Model):
     event = models.ForeignKey(Event)
-    photo = models.ImageField(upload_to='photo/%Y/%m/%d')
-    tags = TagField()
-    time = models.DateTimeField(blank=True, null=True)
+    image = models.ImageField(upload_to='photos/%Y/%m/%d')
     user = models.ForeignKey(User)
-
-
-class Invitation():
+    description = models.TextField()
+    added = models.DateTimeField(editable = False, auto_now_add=True)
+    
+    
+class Invitation(models.Model):
+    STATUS_CHOICES = (
+        ('R','awaiting reply'),
+        ('N', 'not attending'),
+        ('A', 'attending')                
+    )
+    
     event = models.ForeignKey(Event)
     email = models.EmailField()
-    status = models.CharField(max_length=1, db_index=True,
-                              blank=True, null=True, 
-                              choices=(('w', _('awaiting reply')),
-                                       ('a', _('not attending')),
-                                       ('n', _('attending'))))
-    
+    sent = models.BooleanField()
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES)    
     
