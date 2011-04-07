@@ -1,0 +1,9 @@
+<h1>Events</h1>
+<ul>
+	{% for event in events %}
+		<li>
+			{{ event.name }} <a href="{% url event_detail id=event.id %}" >Details</a>
+			({{ event.start|date:"d.m.Y" }})
+		</li>
+	{% endfor %}
+</ul>
