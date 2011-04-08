@@ -12,8 +12,8 @@ def event_detail(request, id):
     return render_to_response('events/detail.html',{'event':event})
 
 def event_list(request):
-    event = Event.objects.all().order_by('start')
-    return render_to_response('events/list.html',{'event':event})
+    events = Event.objects.all().order_by('start')
+    return render_to_response('events/list.html',{'events':events})
 
 
 @login_required
