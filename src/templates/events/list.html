@@ -1,9 +1,11 @@
-<h1>Events</h1>
+<h1>Etkinlikler</h1>
 <ul>
 	{% for event in events %}
 		<li>
-			{{ event.name }} <a href="{% url event_detail id=event.id %}" >Details</a>
+			 <a href="{% url event_detail slug=event.slug %}" >{{ event.name }}</a>
 			({{ event.start|date:"d.m.Y" }})
 		</li>
 	{% endfor %}
 </ul>
+
+<a href="{% url event_add %}">Yeni etkinlik ekle</a>

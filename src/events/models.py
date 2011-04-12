@@ -12,7 +12,7 @@ class EventType(models.Model):
 
 class Event(models.Model):
     name = models.CharField(max_length=50)
-    slug = models.SlugField(editable=False)
+    slug = models.SlugField(editable=False,unique=True)
     description = models.TextField()
     type = models.ForeignKey(EventType, blank = True, null =True)
     start = models.DateTimeField()
