@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from events.models import Event
-from events.forms import EventForm
+from events.forms import EventForm, EventType
 from django.core.context_processors import request
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -47,6 +47,16 @@ def event_add(request):
     else:
         form = EventForm()
     return render_to_response('events/form.html', {'form':form})
+
+#def event_type(request):
+#    if request.method == 'POST':
+#        form = EventType(request.POST)
+#        if form.is_valid():
+#            form.save()
+#            return HttpResponseRedirect(reverse('event_list'))
+#    else:
+#        form = EventType()
+#    return render_to_response('events/type_form.html', {'form':form})
 
     
              

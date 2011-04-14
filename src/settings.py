@@ -84,11 +84,32 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_auth',
     'events',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.twitter.TwitterBackend',
+    'social_auth.backends.facebook.FacebookBackend',
+#    'social_auth.backends.google.GoogleOAuthBackend',
+#    'social_auth.backends.google.GoogleOAuth2Backend',
+    'social_auth.backends.google.GoogleBackend',
+#    'social_auth.backends.yahoo.YahooBackend',
+#    'social_auth.backends.contrib.linkedin.LinkedinBackend',
+#    'social_auth.backends.contrib.LiveJournalBackend',
+#    'social_auth.backends.contrib.orkut.OrkutBackend',
+#    'social_auth.backends.OpenIDBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+FACEBOOK_APP_ID          = '148495148549406'
+FACEBOOK_API_SECRET      = '36d90ead78ca31a10aca778012bfcffa'
+
+TWITTER_CONSUMER_KEY     = 'wJvJOt57f7ZrRQIsYAvulQ'
+TWITTER_CONSUMER_SECRET  = '0atPxdXZnVTFwfI3SRga9KIswyHTRzDjUsq5vUNtZxk'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

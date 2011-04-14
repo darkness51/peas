@@ -1,0 +1,13 @@
+<h1>{{ event.name }}</h1>
+
+{{ event.description }}
+
+Başlangıç Tarihi: {{ event.start }} Bitiş Tarihi: {{ event.end }}
+
+Adres: {{ event.address }}
+
+Şehir: {{ event.location }}
+
+<a href="{% url event_edit id=event.id %}">etkinliği düzenle</a>
+
+
