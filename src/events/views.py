@@ -1,11 +1,12 @@
 from django.shortcuts import render_to_response, get_object_or_404
-from events.models import Event
-from events.forms import EventForm, EventType
+from events.models import Event, Invitation
+from events.forms import EventForm, SendInvitation
 from django.core.context_processors import request
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template.context import RequestContext
+from django.core.mail import send_mail
 #from django.contrib.auth import authenticate, login
 
 def event_detail(request, slug):
@@ -47,6 +48,34 @@ def event_add(request):
     else:
         form = EventForm()
     return render_to_response('events/form.html', {'form':form})
+
+def send_invitation(request,slug):
+    event = Event.objects.get(slug = slug)
+    
+    if request.method == 'POST':
+        form = SendInvitation(request.POST)
+        if form.is_valid():
+            text = request.POST['emails']
+            emails = text.split(";")        
+            subject = event.name
+            message = event.description + str(event.start) + str(event.end) + event.address + event.location 
+            sender = ""
+            for email in emails:
+                send_mail(subject, message, sender, email)
+                invitation = Invitation.objects.create(event = event, 
+                                               email=email,
+                                               events_sent =False,
+                                               events_status='R')
+        #Invitation.objects.get_or_create 
+        #multiple invitations for one email
+    else:
+        form = SendInvitation()
+    return render_to_response('events/invitation-form.html', {'form':form})
+
+
+
+
+
 
 #def event_type(request):
 #    if request.method == 'POST':
