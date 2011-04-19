@@ -7,6 +7,8 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template.context import RequestContext
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.views.decorators.csrf import csrf_exempt
 #from django.contrib.auth import authenticate, login
 
 def event_detail(request, slug):
@@ -49,6 +51,7 @@ def event_add(request):
         form = EventForm()
     return render_to_response('events/form.html', {'form':form})
 
+@csrf_exempt
 def send_invitation(request,slug):
     event = Event.objects.get(slug = slug)
     
@@ -58,14 +61,19 @@ def send_invitation(request,slug):
             text = request.POST['emails']
             emails = text.split(";")        
             subject = event.name
-            message = event.description + str(event.start) + str(event.end) + event.address + event.location 
-            sender = ""
+            message = render_to_string('events/mail_template.html', {'event':event})
+            sender = "onurince61@gmail.com"
             for email in emails:
-                send_mail(subject, message, sender, email)
+                try:
+                    send_mail(subject, message,to=[email])
+                except:
+                    sent = False
+                else:
+                    sent = True
                 invitation = Invitation.objects.create(event = event, 
                                                email=email,
-                                               events_sent =False,
-                                               events_status='R')
+                                               sent =sent,
+                                               status='R')
         #Invitation.objects.get_or_create 
         #multiple invitations for one email
     else:

@@ -2,7 +2,7 @@
                 &nbsp;
 <a href="{% url begin backend="facebook" %}"><img src="/facebook.gif"></a>
 &nbsp;
-<a href="{% url begin backend="facebook" %}">Twitter</a>
+<a href="{% url begin backend="twitter" %}">Twitter</a>
 
 <h1>Etkinlikler</h1>
 <ul>

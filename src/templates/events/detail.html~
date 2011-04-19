@@ -9,5 +9,6 @@ Adres: {{ event.address }}
 Şehir: {{ event.location }}
 
 <a href="{% url event_edit id=event.id %}">etkinliği düzenle</a>
+<a href="{% url send_invitation slug=event.slug %}">etkinliğe davet</a>
 
 

@@ -7,7 +7,7 @@ class EventForm(forms.ModelForm):
         exclude = ('user',)
         
 class SendInvitation(forms.Form):
-    emails = forms.Textarea()
+    emails = forms.CharField(widget=forms.Textarea)
         
 #class EventTpye(forms.ModelForm):
 #    class Meta:
