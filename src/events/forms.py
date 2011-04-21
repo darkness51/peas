@@ -1,5 +1,5 @@
 from django import forms
-from events.models import Event, EventType
+from events.models import Event, Invitation
 
 class EventForm(forms.ModelForm):
     class Meta:
@@ -8,8 +8,9 @@ class EventForm(forms.ModelForm):
         
 class SendInvitation(forms.Form):
     emails = forms.CharField(widget=forms.Textarea)
+    
+class ResponseInvitation(forms.Form):
+    class Meta:
+        model = Invitation
+        fields = ('status')
         
-#class EventTpye(forms.ModelForm):
-#    class Meta:
-#        model = EventType
-#        exclude = ('user',)

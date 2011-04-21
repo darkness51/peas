@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from events.models import Event, Invitation
-from events.forms import EventForm, SendInvitation
+from events.forms import EventForm, SendInvitation, ResponseInvitation
 from django.core.context_processors import request
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -9,6 +9,7 @@ from django.template.context import RequestContext
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.safestring import mark_safe
 #from django.contrib.auth import authenticate, login
 
 def event_detail(request, slug):
@@ -21,6 +22,7 @@ def event_list(request):
 
 
 #@login_required
+@csrf_exempt
 def event_form(request, id=None):
     if id:
         instance = get_object_or_404(Event, id=id)
@@ -40,7 +42,7 @@ def event_form(request, id=None):
     return render_to_response('events/form.html',
                               {'form':form},
                               context_instance=RequestContext(request))
-
+@csrf_exempt
 def event_add(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
@@ -61,39 +63,38 @@ def send_invitation(request,slug):
             text = request.POST['emails']
             emails = text.split(";")        
             subject = event.name
-            message = render_to_string('events/mail_template.html', {'event':event})
-            sender = "onurince61@gmail.com"
+            message = mark_safe(render_to_string('events/mail_template.html', {'event':event}))
+
             for email in emails:
                 try:
-                    send_mail(subject, message,to=[email])
+                    send_mail(subject, message,'0nur1nc3@gmail.com',[email])
                 except:
                     sent = False
                 else:
                     sent = True
                 invitation = Invitation.objects.create(event = event, 
-                                               email=email,
-                                               sent =sent,
+                                               email = email,
+                                               sent = sent,
                                                status='R')
+                
         #Invitation.objects.get_or_create 
         #multiple invitations for one email
     else:
         form = SendInvitation()
     return render_to_response('events/invitation-form.html', {'form':form})
 
-
-
-
-
-
-#def event_type(request):
-#    if request.method == 'POST':
-#        form = EventType(request.POST)
-#        if form.is_valid():
-#            form.save()
-#            return HttpResponseRedirect(reverse('event_list'))
-#    else:
-#        form = EventType()
-#    return render_to_response('events/type_form.html', {'form':form})
+def response_invitation(request,id,email):
+    Invitation.objects.get(id=id,email=email)
+    
+    if request.method == 'POST':
+        form = ResponseInvitation(request.POST)
+        if form.is_valid():
+            response = request.POST['response']
+            Invitation.objects.update(status=response)
+    
+    else:
+        form = ResponseInvitation()
+    return render_to_response('events/response-form.html',{'form':form})
 
     
              
