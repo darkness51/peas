@@ -43,7 +43,7 @@ class Photo(models.Model):
     
 class Invitation(models.Model):
     STATUS_CHOICES = (
-        ('R','awaiting reply'),
+        ('R', 'awaiting reply'),
         ('N', 'not attending'),
         ('A', 'attending')                
     )

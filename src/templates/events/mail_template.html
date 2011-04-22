@@ -12,3 +12,10 @@ Adres:
 {{event.location|capfirst}}
 
 http://mutlugunumuz.com{% url event_detail slug=event.slug %}
+
+Katılım durumunu değiştirmek için tıklayın.
+
+http://mutlugunumuz.com{% url response_invitation id=invitation.id %}	
+ 
+id={{invitation.id}}
+mail={{invitation.email}}

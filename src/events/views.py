@@ -63,34 +63,43 @@ def send_invitation(request,slug):
             text = request.POST['emails']
             emails = text.split(";")        
             subject = event.name
-            message = mark_safe(render_to_string('events/mail_template.html', {'event':event}))
+        
 
             for email in emails:
+                invitation = Invitation.objects.create(event = event, 
+                                               email = email,
+                                               sent = False,
+                                               status='R')
+                message = mark_safe(render_to_string('events/mail_template.html',
+                                                      {'event':event,
+                                                      'invitation':invitation}))
                 try:
                     send_mail(subject, message,'0nur1nc3@gmail.com',[email])
                 except:
                     sent = False
                 else:
                     sent = True
-                invitation = Invitation.objects.create(event = event, 
+                    
+                Invitation.objects.filter(id=invitation.id).update(event = event, 
                                                email = email,
                                                sent = sent,
                                                status='R')
                 
         #Invitation.objects.get_or_create 
         #multiple invitations for one email
+        #http://mutlugunumuz.com{% url response_invitation id=invitation.id %}
+        #mail_template.html in içine eklenecek
     else:
         form = SendInvitation()
     return render_to_response('events/invitation-form.html', {'form':form})
 
-def response_invitation(request,id,email):
-    Invitation.objects.get(id=id,email=email)
-    
+def response_invitation(request,id):
+        
     if request.method == 'POST':
         form = ResponseInvitation(request.POST)
         if form.is_valid():
             response = request.POST['response']
-            Invitation.objects.update(status=response)
+            Invitation.objects.filter(id=id).update(status=response)
     
     else:
         form = ResponseInvitation()
