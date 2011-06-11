@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+{% load i18n %}
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="/960.css"/>
+  <link rel="stylesheet" type="text/css" href="/base.css"/>
+	<title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+<div class="container_12">
+    
+  <div class="grid_3">
+    {{ request.user }}
+    {% if user.is_authenticated %}
+      {{ user.username }}
+    {% else %}
+      <a href="{% url login %}">{% trans "Login" %} / {% trans "Register" %}</a>
+    {% endif %}
+  </div>
+  <div class="clear"></div>
+    
+  <div class="grid_6">
+    <h1>{% block page_title %}<a href="/">{% trans "Home" %}</a>{% endblock %}</h1>
+  </div>
+  
+  <div class="grid_1">
+  </div>
+
+  <div class="grid_1">
+  </div>
+  
+  <div class="grid_1">
+  </div>
+  
+  <div class="grid_1">
+  </div>
+  
+  <div class="grid_3">
+  	<input />
+  </div>
+  
+  <div class="clear"></div>
+  
+  <div class="grid_6">
+  
+    {% block content %}
+    {% endblock %}
+  
+  </div>
+
+  <div class="grid_6">
+  
+    {% block menu %}
+    {% endblock %}
+  
+  </div>
+
+  <div class="clear"></div>
+
+  {% block footer %}{% endblock %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% load i18n %}
+
+{% csrf_token %}
+
+{% if form.non_field_errors %}
+<div class="errorlist" style="padding:10px;">
+	{% for error in form.non_field_errors %}
+		{{ error }}
+	{% endfor %}
+</div>
+{% endif %}
+
+{% for hidden in form.hidden_fields %}
+	{{ hidden }}
+{% endfor %}
+                
+{% for field in form.visible_fields %}
+	{% include "form_field.html" %}
+{% endfor %}

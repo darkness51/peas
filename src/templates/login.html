@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <ul>
+    <li><a href="{% url begin "facebook" %}" rel="nofollow">Facebook</a></li>
+    <li><a href="{% url begin "twitter" %}" rel="nofollow">Twitter</a></li>
+    <li><a href="{% url begin "google" %}" rel="nofollow">Google</a></li>
+  </ul>
+{% endblock %}

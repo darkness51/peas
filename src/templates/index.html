@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Welcome to MemoValley" %}{% endblock %}
+{% block page_title %}{% trans "MemoValley Logo" %}{% endblock %}
+
+{% block content %}
+<h1>The Valley Of Our Memories</h1>
+loremipsum loremipsum loremipsum loremipsumloremipsum loremipsum
+{% endblock %}
+
+{% block menu %}
+<h1>Video</h1>
+loremipsum loremipsum loremipsum loremipsumloremipsum loremipsum
+<iframe src="http://player.vimeo.com/video/22396483?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="400" height="225" frameborder="0"></iframe>
+{% endblock %}
+
+{% block footer %}
+  <div class="grid_4">
+    <h1>Death Profiles</h1>
+    loremipsum loremipsum loremipsum loremipsumloremipsum loremipsum
+  	<br><a href="{% url dprofile_list %}">{% trans "Profiles" %}</a>
+  </div>
+  <div class="grid_4">
+    <h1>Communities</h1>
+    loremipsum loremipsum loremipsum loremipsumloremipsum loremipsum
+    <br><a href="{% url community_list %}">{% trans "Communities" %}</a>
+  </div>
+  <div class="grid_4">
+    <h1>Memolane</h1>
+    loremipsum loremipsum loremipsum loremipsumloremipsum loremipsum
+    <br><a href="http://memolane.com">{% trans "Memolane" %}</a>
+  </div>  
+{% endblock %}
+

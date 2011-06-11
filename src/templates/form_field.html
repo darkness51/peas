@@ -1,0 +1,18 @@
+{% load i18n %}
+        <div class="text_a mt10">
+                {{ field.label_tag }}
+                {% if not field.field.required %}
+                	<span style="color:#666;">({% trans "optional" %})</span>
+		{% endif %}
+        </div>
+        <div class="mainput">
+        	{{ field }}
+                
+                {% if field.errors %}
+                        <div class="text_b p8 ml10 wrap">{{ field.errors.0 }}</div>
+                {% else %}
+                        <div class="p8 wrap">{{ field.help_text }}</div>
+                {% endif %}
+	</div>
+	<div class="clear"></div>
+

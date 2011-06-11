@@ -1,4 +1,10 @@
 from settings_local import *
+import os.path
+
+SITE_ROOT = os.path.dirname(__file__)
+
+MEDIA_ROOT = os.path.abspath(os.path.join(SITE_ROOT, '../static'))
+MEDIA_URL = '/'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -67,6 +73,10 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+TEMPLATE_DIRS = (
+    os.path.abspath(os.path.join(SITE_ROOT, 'templates')),
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -133,3 +143,6 @@ LOGGING = {
         },
     }
 }
+
+LOGIN_URL = '/auth/login/'
+LOGIN_REDIRECT_URL = '/'

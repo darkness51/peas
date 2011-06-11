@@ -1,7 +1,10 @@
-<form method="POST">
-{% csrf_token %}
-<table>
-	{{ form }}
-</table>
-<input type="submit">
-</form>
+{% extends "base.html" %}
+
+{% block content %}
+  <form method="post">
+    <table>
+      {% include "form.html" %}
+    </table>
+    <input type="submit">
+  </form>
+{% endblock %}
