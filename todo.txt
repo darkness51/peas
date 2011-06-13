@@ -1,11 +1,13 @@
 functional:
-- invite facebook friends (requires integration of invitation for non-users)
+- extend invitations using facebook, gmail, etc. contacts
+- integrate invitation management for all, including non-users
 - post actions to facebook & twitter where applicable
-- better management of invitations (re-invite, etc.)
-- site search
+- re-invite not responded users
+- site search (events, photos, etc.)
 
 visual / usability:
 - good look, high usability, clean layout in general
 - use ajax where applicable; e.g. response to invitations
 - better forms / widgets; e.g. make date fields more user friendly
 - mark and display event location on a map
+
