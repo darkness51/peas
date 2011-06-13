@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ event.name }}{% endblock %}
+{% block page_title %}{% trans "Invite your friends" %}{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <table>
+      {% include "form.html" %}
+    </table>
+    <input type="submit">
+  </form>
+{% endblock %}

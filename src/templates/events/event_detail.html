@@ -1,18 +1,37 @@
 {% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ event.name }}{% endblock %}
+{% block page_title %}{{ event.name }}{% endblock %}
 
 {% block content %}
-
-    <h1>{{ event.name }}</h1>
     
     {{ event.description }}
     
-    Başlangıç Tarihi: {{ event.start }} Bitiş Tarihi: {{ event.end }}
+    <br>
     
-    Adres: {{ event.address }}
+    {% trans "Time" %}: {{ event.start }} - {{ event.end }}
     
-    Şehir: {{ event.location }}
+    <br>
     
-    <a href="{% url event_edit id=event.id %}">etkinliği düzenle</a>
-    <a href="{% url send_invitation slug=event.slug %}">etkinliğe davet</a>
+    {% trans "Address" %}: {{ event.address }}
+    
+    <br>
+    
+    {% trans "Location" %}: {{ event.location }}
+
+    <br>
+        
+    <a href="{% url event_edit pk=event.id %}">{% trans "Edit event" %}</a>
+    <a href="{% url send_invitation slug=event.slug %}">{% trans "Invite friends" %}</a>
+    
+    <br><br>
+    
+    {% if user.is_authenticated %}
+        <h2>{% trans "Invitees" %}</h2>
+        {% for invitation in event.invitation_set.all %}
+            {{ invitation.email }} ({{ invitation.get_status_display }})
+        {% endfor %}
+    {% endif %}
 
 {% endblock %}

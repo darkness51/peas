@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ invitation.event.name }}{% endblock %}
+{% block page_title %}{{ invitation.event.name }}{% endblock %}
+
+{% block content %}
+
+    <h1>{% trans "Are you attending?" %}</h1>
+    
+    <form method="post">
+        {% include "form.html" %}
+        <input type="submit" value="Respond">
+    </form>
+    
+    <a href="{% url event_detail slug=invitation.event.slug %}">{% trans "Return to event details" %}</a>
+
+{% endblock %}
+

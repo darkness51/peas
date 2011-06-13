@@ -1,4 +1,8 @@
-from settings_local import *
+try:
+    from settings_local import *
+except ImportError:
+    print "Rename settings_local.dist.py as settings_local.py and edit to reflect your environment"
+
 import os.path
 
 SITE_ROOT = os.path.dirname(__file__)
@@ -85,7 +89,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'src.urls'
+ROOT_URLCONF = 'urls'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -115,11 +119,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-FACEBOOK_APP_ID          = '148495148549406'
-FACEBOOK_API_SECRET      = '36d90ead78ca31a10aca778012bfcffa'
-
-TWITTER_CONSUMER_KEY     = 'wJvJOt57f7ZrRQIsYAvulQ'
-TWITTER_CONSUMER_SECRET  = '0atPxdXZnVTFwfI3SRga9KIswyHTRzDjUsq5vUNtZxk'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

@@ -1,0 +1,11 @@
+functional:
+- invite facebook friends (requires integration of invitation for non-users)
+- post actions to facebook & twitter where applicable
+- better management of invitations (re-invite, etc.)
+- site search
+
+visual / usability:
+- good look, high usability, clean layout in general
+- use ajax where applicable; e.g. response to invitations
+- better forms / widgets; e.g. make date fields more user friendly
+- mark and display event location on a map

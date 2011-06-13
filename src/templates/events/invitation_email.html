@@ -1,0 +1,12 @@
+{% load i18n %}{% with site.domain as domain and site.name as site_name and event.name as event_name %}{% url event_detail slug=event.slug as detail_url %}{% url event_rsvp hash=invitation.hash as rsvp_url %}{% blocktrans %}
+You are invited to the event "{{ event_name }}".
+
+Click to see the details:
+http://{{ domain }}{{ detail_url }}
+
+RSVP:
+http://{{ domain }}{{ rsvp_url }}
+
+{{ site_name }} team
+{% endblocktrans %}
+{% endwith %}
